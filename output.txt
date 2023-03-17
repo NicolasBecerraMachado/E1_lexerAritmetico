@@ -1,0 +1,4 @@
+123b32           invalid number
+12.34           real number
+55           whole number
+33.3.4.5           invalid number

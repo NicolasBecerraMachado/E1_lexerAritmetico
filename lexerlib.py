@@ -31,5 +31,22 @@ def isOperand(char):
 def isComment(word):
     return word[0:2] == "//"
 
+#checks if a char is an assignation
 def isAssignation(char):
     return char == "="
+
+#checks if a number is real or whole and if its valid
+def validNumber(number):
+    #check if it contains only numbers and dots
+    for char in number:
+        if not char.isdigit() and char != ".":
+            return False
+    #check if number is valid
+    if not number.replace(".", "", 1).isdigit():
+        return False
+    #check if number is real
+    if "." in number:
+        return "real"
+    #check if number is whole
+    else:
+        return "whole"

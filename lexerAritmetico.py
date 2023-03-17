@@ -45,7 +45,14 @@ if __name__ == '__main__':
                 1+1
             elif lexerlib.isDigit(word[0]):
                 #check if word is a number
-                1+1
+                state = lexerlib.validNumber(word)
+                if state == "real":
+                    elements.append([word,"real number"])
+                elif state == "whole":
+                    elements.append([word,"whole number"])
+                else:
+                    elements.append([word,"invalid number"])
+                    print("Invalid number in line: " + line)
             elif lexerlib.isBracket(word[0]):
                 #check if word is a bracket
                 1+1
@@ -60,5 +67,9 @@ if __name__ == '__main__':
                 1+1
     
     #write elements to file
-    lexerlib.writeToFile("output.txt", "\N{LF}".join(elements))
+    #write each element in a new line
+    content = ""
+    for element in elements:
+        content += element[0] + "           " + element[1] + "\N{LF}"
+    lexerlib.writeToFile("output.txt", content)
     exit(0)
