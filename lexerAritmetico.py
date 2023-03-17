@@ -51,6 +51,7 @@ if __name__ == '__main__':
                 else:
                     elements.append([word,"invalid number"])
                     print("Invalid number in line: " + line)
+                    print("error: " + str(state))
             elif lexerlib.isBracket(word[0]):
                 #check if word is a bracket
                 1+1
@@ -68,6 +69,7 @@ if __name__ == '__main__':
                 else:
                     elements.append([word,"invalid assignation"])
                     print("Invalid assignation in line: " + line)
+                    print("error: " + str(state))
 
 
 

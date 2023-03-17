@@ -14,3 +14,5 @@
 =           invalid assignation
 4           whole number
 ////////           line break
+=           invalid assignation
+////////           line break

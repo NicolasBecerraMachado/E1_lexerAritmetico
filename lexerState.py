@@ -9,6 +9,7 @@ class lexerState:
         self.variable = False
         self.number = False
         self.bracket = False
+        self.previous = "None"
 
     #reset the state when change of line
     def resetState(self):
@@ -18,3 +19,4 @@ class lexerState:
         self.variable = False
         self.number = False
         self.bracket = False
+        self.previous = "None"
