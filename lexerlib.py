@@ -1,3 +1,5 @@
+import lexerState
+
 #read file and return a string with the content
 def readFile(fileName):
     file = open(fileName, "r")
@@ -36,7 +38,7 @@ def isAssignation(char):
     return char == "="
 
 #checks if a number is real or whole and if its valid
-def validNumber(number):
+def validNumber(number,state):
     #check if it contains only numbers and dots
     for char in number:
         if not char.isdigit() and char != ".":
@@ -44,9 +46,27 @@ def validNumber(number):
     #check if number is valid
     if not number.replace(".", "", 1).isdigit():
         return False
+    
+    #state that we have a valid number
+    state.number = True
+    
     #check if number is real
     if "." in number:
         return "real"
     #check if number is whole
     else:
         return "whole"
+    
+#checks if a string is a valid assignation
+def validAssignation(word, state):
+    if word != "=":
+        return False
+    #check if previous element was a number
+    if state.number:
+        return False
+    #check if previous element was a variable
+    if not state.variable:
+        return False
+
+    state.asignation = True
+    return "valid"    

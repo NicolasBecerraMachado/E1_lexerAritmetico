@@ -1,6 +1,7 @@
 import os
 import sys
 import lexerlib
+import lexerState
 
 if __name__ == '__main__':
 
@@ -27,25 +28,22 @@ if __name__ == '__main__':
     elements = []
 
     #variables used to identify the state
-    operand = False
-    asignation = False
-    comment = False
-    variable = False
-    number = False
-    bracket = False
+    stateLexer = lexerState.lexerState()
 
     #iterate through lines
     for line in lines:
         #split line by spaces
         words = line.split(" ")
         for word in words:
+            if len(word) == 0:
+                continue
             #create case based on firs element of word
             if lexerlib.isLetter(word[0]):
                 #check if word is a variable
                 1+1
             elif lexerlib.isDigit(word[0]):
                 #check if word is a number
-                state = lexerlib.validNumber(word)
+                state = lexerlib.validNumber(word,stateLexer)
                 if state == "real":
                     elements.append([word,"real number"])
                 elif state == "whole":
@@ -64,7 +62,17 @@ if __name__ == '__main__':
                 1+1
             elif lexerlib.isAssignation(word[0]):
                 #check if word is an assignation
-                1+1
+                state = lexerlib.validAssignation(word,stateLexer)
+                if state == "valid":
+                    elements.append([word,"assignation"])
+                else:
+                    elements.append([word,"invalid assignation"])
+                    print("Invalid assignation in line: " + line)
+
+
+
+        elements.append(["////////","line break"])
+        stateLexer.resetState()
     
     #write elements to file
     #write each element in a new line

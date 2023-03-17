@@ -1,4 +1,16 @@
 123b32           invalid number
+////////           line break
 12.34           real number
+////////           line break
 55           whole number
+////////           line break
 33.3.4.5           invalid number
+////////           line break
+////////           line break
+1234           whole number
+=           invalid assignation
+2           whole number
+////////           line break
+=           invalid assignation
+4           whole number
+////////           line break
