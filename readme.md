@@ -5,7 +5,7 @@ Program that from a txt file name extracts data from file and clasifies it as if
 
 program functional diagram:
 
-![functional diagram](functionality diagram.drawio.png)
+![functional diagram](functionality_diagram.png)
 ## Dependencies and instalation
 
 To install please clone or download the repo to your computer. To clone, install git to your environment and execute.
