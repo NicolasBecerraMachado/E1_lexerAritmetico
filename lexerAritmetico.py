@@ -34,10 +34,10 @@ if __name__ == '__main__':
     for line in lines:
         #add a space before and after each operand or assignation
         line = line.replace("+", " + ")
-        #check if minus is a operand or a negative sign
+        #check if minus is a operand or a exponent in scientific notation or a negative number
         i = 0
         while i < len(line):
-            if line[i] == "-" and i != 0 and line[i-1] != "e" and line[i-1] != "E":
+            if line[i] == "-" and i != 0 and line[i-1] != "e" and line[i-1] != "E" and i != len(line)-1 and not line[i+1].isdigit():
                 line = line[:i] + " - " + line[i+1:]
                 i+=2
             i += 1
@@ -92,7 +92,12 @@ if __name__ == '__main__':
                 break
             elif lexerlib.isOperand(word[0]):
                 #check if word is an operand
-                1+1
+                state = lexerlib.validOperand(word,stateLexer)
+                if state == "operand":
+                    elements.append([word,"operand"])
+                else:
+                    elements.append([word,"invalid operand"])
+                    print("Invalid operand in line: " + line)
             elif lexerlib.isAssignation(word[0]):
                 #check if word is an assignation
                 state = lexerlib.validAssignation(word,stateLexer)
