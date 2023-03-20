@@ -6,6 +6,11 @@
 ////////           line break
 33.3.4.5           invalid number
 ////////           line break
+1E-1           real number
+////////           line break
+2.34e1           real number
+////////           line break
+4e4           whole number
 ////////           line break
 1234           whole number
 =           invalid assignation

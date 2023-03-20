@@ -10,6 +10,7 @@ class lexerState:
         self.number = False
         self.bracket = False
         self.previous = "None"
+        stack = []
 
     #reset the state when change of line
     def resetState(self):
@@ -20,3 +21,4 @@ class lexerState:
         self.number = False
         self.bracket = False
         self.previous = "None"
+        stack = []
