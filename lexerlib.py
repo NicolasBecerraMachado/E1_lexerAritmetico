@@ -106,6 +106,71 @@ def validNumber(number,state):
     else:
         return "whole"   
 
+#checks if a number is real or whole and if its valid
+#exactly the same as valid number but allows number after number
+def validNegNumber(number,state):
+    #check if it contains only numbers and dots or scientific notation
+    for char in number:
+        if not char.isdigit() and char != "." and char != "e" and char != "E" and char != "-":
+            #assume error
+            state.previous = "error"
+            print("error: invalid number - contains invalid characters")
+            return False
+    #check if number is valid
+    if not number.replace(".", "", 1).replace("e", "", 1).replace("E", "", 1).replace("-", "", 1).isdigit():
+        #assume error
+        state.previous = "error"
+        print("error: invalid number - contains extra dots or scientific notation or negative sign") 
+        return False
+    
+    if state.previous == "variable":
+        state.previous = "number"
+        print("error: number after variable")
+        return False
+
+    #state that we have a valid number
+    state.number = True
+    state.previous = "number"
+    
+    #check if number is a valid scientific notation
+    if "e" in number or "E" in number:
+        #check if number is valid
+        if "e" in number:
+            if not number.replace("e", "", 1).replace(".", "", 1).replace("-","",1).isdigit():
+                #assume error
+                print("invalid scientific")
+                return False
+        if "E" in number:
+            if not number.replace("E", "", 1).replace(".", "", 1).replace("-","",1).isdigit():
+                #assume error
+                print("invalid scientific")
+                return False
+        #check if is number is real or whole
+        #check how many times does the exponent increase the number
+        if "e" in number:
+            exponent = int(number.split("e")[1])
+        if "E" in number:
+            exponent = int(number.split("E")[1])
+        #check if exponent is negative
+        if exponent < 0:
+            return "real"
+        if not "." in number:
+            return "whole"
+        #check if positive exponent is enough to make the number whole
+        if exponent >= len(number.split(".")[1]):
+            return "whole"
+        else:
+            return "real"
+        print("unrecognized scientific")
+        return False
+
+    #check if number is real
+    if "." in number:
+        return "real"
+    #check if number is whole
+    else:
+        return "whole" 
+
 #checks if a string is a valid assignation
 def validAssignation(word, state):
     #check if word is an assignation
@@ -183,6 +248,20 @@ def validVariable(word, state):
 
 #checks if a string is a valid operand
 def validOperand(word, state):
+    #check if handling a negative number
+    if word[0] == "-" and len(word) > 1:
+        stateP = validNegNumber(word[1:], state)
+        if stateP == "whole":
+            state.previous = "number"
+            state.number = True
+            return "whole"
+        if stateP == "real":
+            state.previous = "number"
+            state.number = True
+            return "real"
+        else:
+            print("error: invalid negative number")
+            return False
     #check if word is an operand
     if word not in "+-*/^":
         #assume error

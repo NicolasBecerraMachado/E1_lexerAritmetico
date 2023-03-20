@@ -36,9 +36,23 @@ if __name__ == '__main__':
         line = line.replace("+", " + ")
         #check if minus is a operand or a exponent in scientific notation or a negative number
         i = 0
+        #check if we do not begin with a negative number
+        if line and line[0] == "-":
+            if not (len(line) > 1 and line[1].isdigit()):
+                line = " - " + line[1:]
+                i+=2
         while i < len(line):
-            if line[i] == "-" and i != 0 and line[i-1] != "e" and line[i-1] != "E" and i != len(line)-1 and not line[i+1].isdigit():
+            #check if is allowed to split or scientific notation
+            if line[i] == "-" and i != 0 and (line[i-1] == "e" or line[i-1] == "E") and line[i+1].isdigit():
+                1+1
+            elif line[i] == "-" and i != len(line)-1 and line[i+1].isdigit():
+                line = line[:i] + " -" + line[i+1:]
+                i+=1
+            elif line[i] == "-":
                 line = line[:i] + " - " + line[i+1:]
+                i+=2
+            if i == len(line)-1 and line[i] == "-":
+                line = line[:i] + " - "
                 i+=2
             i += 1
         line = line.replace("*", " * ")
@@ -73,6 +87,7 @@ if __name__ == '__main__':
                 else:
                     elements.append([word,"invalid variable"])
                     print("Invalid variable in line: " + line)
+
             elif lexerlib.isDigit(word[0]):
                 #check if word is a number
                 state = lexerlib.validNumber(word,stateLexer)
@@ -83,21 +98,29 @@ if __name__ == '__main__':
                 else:
                     elements.append([word,"invalid number"])
                     print("Invalid number in line: " + line)
+            
             elif lexerlib.isBracket(word[0]):
                 #check if word is a bracket
                 1+1
+            
             elif lexerlib.isComment(word):
                 #check if word is a comment
                 elements.append([word,"comment"])
                 break
+                
             elif lexerlib.isOperand(word[0]):
                 #check if word is an operand
                 state = lexerlib.validOperand(word,stateLexer)
                 if state == "operand":
                     elements.append([word,"operand"])
+                elif state == "whole":
+                    elements.append([word,"whole number"])
+                elif state == "real":
+                    elements.append([word,"real number"])
                 else:
                     elements.append([word,"invalid operand"])
                     print("Invalid operand in line: " + line)
+            
             elif lexerlib.isAssignation(word[0]):
                 #check if word is an assignation
                 state = lexerlib.validAssignation(word,stateLexer)
