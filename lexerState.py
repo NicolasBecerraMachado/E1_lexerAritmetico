@@ -10,7 +10,7 @@ class lexerState:
         self.number = False
         self.bracket = False
         self.previous = "None"
-        stack = []
+        self.stack = []
 
     #reset the state when change of line
     def resetState(self):
@@ -21,4 +21,17 @@ class lexerState:
         self.number = False
         self.bracket = False
         self.previous = "None"
-        stack = []
+        self.stack = []
+    
+    #adds a bracket to the stack
+    def addBracket(self, bracket):
+        self.stack.append(bracket)
+    
+    #removes a bracket from the stack
+    def removeBracket(self):
+        self.stack.pop()
+    
+    #returns the last bracket in the stack
+    def getLastBracket(self):
+        return self.stack[-1]
+    
