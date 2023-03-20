@@ -101,7 +101,18 @@ if __name__ == '__main__':
             
             elif lexerlib.isBracket(word[0]):
                 #check if word is a bracket
-                1+1
+                if(word[0] == "("):
+                    state = lexerlib.insertBracket(stateLexer)
+                    if state == "valid":
+                        elements.append([word,"open bracket"])
+                else:
+                    state = lexerlib.removeBracket(stateLexer)
+                    if state == "valid":
+                        elements.append([word,"close bracket"])
+                    else:
+                        elements.append([word,"invalid bracket"])
+                        print("Invalid bracket in line: " + line)
+                
             
             elif lexerlib.isComment(word):
                 #check if word is a comment
@@ -117,6 +128,9 @@ if __name__ == '__main__':
                     elements.append([word,"whole number"])
                 elif state == "real":
                     elements.append([word,"real number"])
+                elif state == "false number":
+                    elements.append([word,"invalid number"])
+                    print("Invalid number in line: " + line)
                 else:
                     elements.append([word,"invalid operand"])
                     print("Invalid operand in line: " + line)
