@@ -1,5 +1,4 @@
 import lexerState
-import re
 
 #read file and return a string with the content
 def readFile(fileName):
@@ -261,12 +260,18 @@ def validOperand(word, state):
             return "real"
         else:
             print("error: invalid negative number")
-            return False
+            return "false number"
     #check if word is an operand
     if word not in "+-*/^":
         #assume error
         state.previous = "error"
         print("error: invalid operand")
+        return False
+    #check if previous element was a open bracket
+    if state.previous == "open bracket":
+        #assume error
+        state.previous = "error"
+        print("error: operand after open bracket")
         return False
     #check if previous element was an operand
     if state.previous == "operand":
@@ -290,3 +295,35 @@ def validOperand(word, state):
     state.previous = "operand"
     state.operand = True
     return "operand"
+
+#inserts a bracket in stack
+def insertBracket(state):
+    #valid bracket
+    state.previous = "open bracket"
+    state.addBracket("(")
+    return "valid"
+
+#remove a bracket from stack
+def removeBracket(state):
+
+    #check if stack is empty
+    if(state.getLastBracket() != "("):
+        state.previous = "close bracket"
+        print("error: invalid bracket")
+        return "invalid"
+
+    if(state.previous == "open bracket"):
+        state.previous = "close bracket"
+        print("error: empty bracket")
+        return "invalid"
+    
+    if(state.previous == "operand"):
+        state.previous = "close bracket"
+        print("error: close bracket after operand")
+        return "invalid"
+
+
+    #valid bracket
+    state.previous = "close bracket"
+    state.removeBracket()
+    return "valid"
