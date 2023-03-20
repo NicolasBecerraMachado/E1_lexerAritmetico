@@ -32,8 +32,35 @@ if __name__ == '__main__':
 
     #iterate through lines
     for line in lines:
+        #add a space before and after each operand or assignation
+        line = line.replace("+", " + ")
+        #check if minus is a operand or a negative sign
+        i = 0
+        while i < len(line):
+            if line[i] == "-" and i != 0 and line[i-1] != "e" and line[i-1] != "E":
+                line = line[:i] + " - " + line[i+1:]
+                i+=2
+            i += 1
+        line = line.replace("*", " * ")
+        line = line.replace("//", " // ")
+        #check if slash is a operand and not an comment
+        i = 0
+        while i < len(line):
+            if line[i] == "/" and i != len(line)-1 and line[i+1] != "/":
+                line = line[:i] + " / " + line[i+1:]
+                i+=2
+            elif line[i] == "/" and i != len(line)-1 and line[i+1] == "/":
+                #skip next element
+                break
+            i += 1
+        line = line.replace("^", " ^ ")
+        line = line.replace("=", " = ")
+        line = line.replace("(", " ( ")
+        line = line.replace(")", " ) ")
+
         #split line by spaces
         words = line.split(" ")
+
         for word in words:
             if len(word) == 0:
                 continue
