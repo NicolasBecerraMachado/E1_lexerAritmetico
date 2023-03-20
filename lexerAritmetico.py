@@ -132,7 +132,7 @@ def lexerAritmetico(filename):
                     print("Invalid assignation in line: " + line)
 
         #check if there are brackets left open
-        if(stateLexer.getLastBracket != False):
+        if(stateLexer.getLastBracket() != False):
             print("Invalid bracket in line: " + line)
         elements.append(["////////","line break"])
         stateLexer.resetState()
