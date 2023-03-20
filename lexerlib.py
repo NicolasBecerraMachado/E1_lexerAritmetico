@@ -1,4 +1,5 @@
 import lexerState
+import re
 
 #read file and return a string with the content
 def readFile(fileName):
@@ -151,32 +152,35 @@ def validAssignation(word, state):
 #checks if a string is a valid variable
 def validVariable(word, state):
     #check if word is a variable
-    if not word.isalpha() and word != "_":
+    if not word.replace("_","").isalnum():
         #assume error
         state.previous = "error"
+        print("error: invalid variable - contains invalid characters")
         return False
     #check if previous element was a number
-    if state.number:
+    if state.previous == "number":
         #assume error
         state.previous = "error"
+        print("error: variable after number")
         return False
     #check if previous element was a variable
-    if state.variable:
+    if state.previous == "variable":
         #assume error
         state.previous = "error"
+        print("error: consecutive variables")
         return False
     
     if state.previous == "None":
         state.previous = "variable"
-        return "error: variable at the beginning"
+        return "variable"
     if state.previous == "assignation":
         state.previous = "variable"
-        return "error: variable after assignation"
+        return "variable"
     if state.previous == "operand":
         state.previous = "variable"
-        return "error: variable after operand"
+        return "variable"
     
     #valid variable
     state.previous = "variable"
     state.variable = True
-    return "valid"
+    return "variable"

@@ -1,23 +1,91 @@
-123b32           invalid number
 ////////           line break
-12.34           real number
+//           comment
 ////////           line break
-55           whole number
 ////////           line break
-33.3.4.5           invalid number
+b           variable
+=           assignation
+7           whole number
 ////////           line break
-1E-1           real number
 ////////           line break
-2.34e1           real number
+a           variable
+=           assignation
+32.4           real number
+8.6           invalid number
+b           invalid variable
+6.1E-8           real number
 ////////           line break
-4e4           whole number
 ////////           line break
-1234           whole number
+d           variable
+=           assignation
+a           variable
+b           invalid variable
+//           comment
+////////           line break
+////////           line break
+c           variable
+=           assignation
+6.5.3           invalid number
+////////           line break
+////////           line break
+d1           variable
+=           assignation
+16b           invalid number
+////////           line break
+////////           line break
+dato0           variable
+=           assignation
+3           whole number
+5           invalid number
+////////           line break
+////////           line break
+dato1           variable
+=           assignation
+3           whole number
+////////           line break
+////////           line break
 =           invalid assignation
-2           whole number
+8           whole number
 ////////           line break
-=           invalid assignation
-4           whole number
 ////////           line break
+g           variable
+=           assignation
+//           comment
+////////           line break
+////////           line break
+h           variable
+=           assignation
+8.           real number
+3           invalid number
+////////           line break
+////////           line break
+d2           variable
+=           assignation
+3e-4f           invalid number
+////////           line break
+////////           line break
+d3           variable
+=           assignation
 =           invalid assignation
+45           whole number
+38           invalid number
+3           invalid number
+////////           line break
+////////           line break
+d4           variable
+=           assignation
+45           whole number
+38           invalid number
+3           invalid number
+////////           line break
+////////           line break
+d5___3           variable
+=           assignation
+6E-8           real number
+////////           line break
+////////           line break
+d6           variable
+=           assignation
+6.E-8           real number
+////////           line break
+////////           line break
 ////////           line break

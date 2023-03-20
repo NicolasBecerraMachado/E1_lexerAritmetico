@@ -67,7 +67,12 @@ if __name__ == '__main__':
             #create case based on firs element of word
             if lexerlib.isLetter(word[0]):
                 #check if word is a variable
-                1+1
+                state = lexerlib.validVariable(word,stateLexer)
+                if state == "variable":
+                    elements.append([word,"variable"])
+                else:
+                    elements.append([word,"invalid variable"])
+                    print("Invalid variable in line: " + line)
             elif lexerlib.isDigit(word[0]):
                 #check if word is a number
                 state = lexerlib.validNumber(word,stateLexer)
