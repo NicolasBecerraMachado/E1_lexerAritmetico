@@ -37,6 +37,10 @@ def isComment(word):
 def isAssignation(char):
     return char == "="
 
+#checks if a char is a variable
+def isVariable(char):
+    return char.isalpha() or char == "_"
+
 #checks if a number is real or whole and if its valid
 def validNumber(number,state):
     #check if it contains only numbers and dots or scientific notation
@@ -105,7 +109,6 @@ def validNumber(number,state):
     else:
         return "whole"   
 
-    
 #checks if a string is a valid assignation
 def validAssignation(word, state):
     #check if word is an assignation
@@ -126,13 +129,16 @@ def validAssignation(word, state):
     
     if state.previous == "None":
         state.previous = "assignation"
-        return "error: assignation at the beginning"
+        print ("error: assignation at the beginning")
+        return "False"
     if state.previous == "assignation":
         state.previous = "assignation"
-        return "error: consecutive assignations"
+        print ("error: consecutive assignations")
+        return False
     if state.previous == "operand":
         state.previous = "assignation"
-        return "error: assignation after operand"
+        print("error: assignation after operand")
+        return False
     
 
     #valid assignation
@@ -140,4 +146,37 @@ def validAssignation(word, state):
 
     #check if previous element was an operand
     state.asignation = True
-    return "valid"    
+    return "valid"
+
+#checks if a string is a valid variable
+def validVariable(word, state):
+    #check if word is a variable
+    if not word.isalpha() and word != "_":
+        #assume error
+        state.previous = "error"
+        return False
+    #check if previous element was a number
+    if state.number:
+        #assume error
+        state.previous = "error"
+        return False
+    #check if previous element was a variable
+    if state.variable:
+        #assume error
+        state.previous = "error"
+        return False
+    
+    if state.previous == "None":
+        state.previous = "variable"
+        return "error: variable at the beginning"
+    if state.previous == "assignation":
+        state.previous = "variable"
+        return "error: variable after assignation"
+    if state.previous == "operand":
+        state.previous = "variable"
+        return "error: variable after operand"
+    
+    #valid variable
+    state.previous = "variable"
+    state.variable = True
+    return "valid"
