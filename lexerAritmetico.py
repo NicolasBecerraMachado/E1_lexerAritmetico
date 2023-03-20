@@ -3,21 +3,8 @@ import sys
 import lexerlib
 import lexerState
 
-if __name__ == '__main__':
-
-    #check if argument is passed
-    if len(sys.argv) < 2:
-        print("No file name passed")
-        exit(0)
-    
-    #read argument
-    fileName = sys.argv[1]
-
-    #check if file exists
-    if not os.path.isfile(fileName):
-        print("File not found")
-        exit(0)
-    
+#function to contain functionality of the lexer
+def lexerAritmetico(filename):
     #read file
     content = lexerlib.readFile(fileName)
 
@@ -155,4 +142,23 @@ if __name__ == '__main__':
     for element in elements:
         content += element[0] + "           " + element[1] + "\N{LF}"
     lexerlib.writeToFile("output.txt", content)
+
+if __name__ == '__main__':
+
+    #check if argument is passed
+    if len(sys.argv) < 2:
+        print("No file name passed")
+        exit(0)
+    
+    #read argument
+    fileName = sys.argv[1]
+
+    #check if file exists
+    if not os.path.isfile(fileName):
+        print("File not found")
+        exit(0)
+    
+    #call lexer function
+    lexerAritmetico(fileName)
+
     exit(0)
