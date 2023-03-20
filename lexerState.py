@@ -33,5 +33,7 @@ class lexerState:
     
     #returns the last bracket in the stack
     def getLastBracket(self):
-        return self.stack[-1]
+        if len(self.stack) > 0:
+            return self.stack[-1]
+        return False
     
