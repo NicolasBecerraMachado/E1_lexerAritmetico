@@ -38,10 +38,6 @@ def isComment(word):
 def isAssignation(char):
     return char == "="
 
-#checks if a char is a variable
-def isVariable(char):
-    return char.isalpha() or char == "_"
-
 #checks if a number is real or whole and if its valid
 def validNumber(number,state):
     #check if it contains only numbers and dots or scientific notation
@@ -184,3 +180,34 @@ def validVariable(word, state):
     state.previous = "variable"
     state.variable = True
     return "variable"
+
+#checks if a string is a valid operand
+def validOperand(word, state):
+    #check if word is an operand
+    if word not in "+-*/^":
+        #assume error
+        state.previous = "error"
+        print("error: invalid operand")
+        return False
+    #check if previous element was an operand
+    if state.previous == "operand":
+        #assume error
+        state.previous = "error"
+        print("error: consecutive operands")
+        return False
+    #check if previous element was an assignation
+    if state.previous == "assignation":
+        #assume error
+        state.previous = "error"
+        print("error: operand after assignation")
+        return False
+    
+    if state.previous == "None":
+        state.previous = "operand"
+        print ("error: operand at the beginning")
+        return "False"
+    
+    #valid operand
+    state.previous = "operand"
+    state.operand = True
+    return "operand"
